@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.hicc.information.sensorsignin">
+
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <application
+        android:name="cn.ian2018.android.sign.MyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/logo2"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/logo2"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name="cn.ian2018.android.sign.activity.SplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="cn.ian2018.android.sign.activity.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoTitle" />
+        <activity
+            android:name="cn.ian2018.android.sign.activity.LoginActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoTitle" />
+        <activity
+            android:name="cn.ian2018.android.sign.activity.DetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoTitle" />
+        <activity
+            android:name="cn.ian2018.android.sign.activity.MoveActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="cn.ian2018.android.sign.activity.HistoryDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoTitle" />
+        <activity
+            android:name="cn.ian2018.android.sign.activity.ChangePswActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoTitle" />
+        <activity
+            android:name="cn.ian2018.android.sign.activity.AddActiveActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoTitle" />
+        <activity
+            android:name="cn.ian2018.android.sign.activity.LookActiveForIdActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoTitle" />
+        <activity
+            android:name="cn.ian2018.android.sign.activity.GuideActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoTitle" />
+        <activity
+            android:name="cn.ian2018.android.sign.activity.ScanActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="cn.ian2018.android.sign.activity.AdminActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoTitle" />
+        <activity
+            android:name="cn.ian2018.android.sign.activity.ChangeActiveActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoTitle" />
+        <activity
+            android:name="cn.ian2018.android.sign.activity.SignRecordActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoTitle" />
+        <activity
+            android:name="cn.ian2018.android.sign.activity.FeedBackActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoTitle" />
+        <activity
+            android:name="cn.ian2018.android.sign.activity.LookFeedbackActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoTitle" />
+        <activity android:name="cn.ian2018.android.sign.activity.HistoryActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoTitle" />
+
+        <service android:name="cn.ian2018.android.sign.service.SensorService" />
+        <service android:name="com.sensoro.beacon.kit.BeaconService" />
+        <service android:name="com.sensoro.beacon.kit.IntentProcessorService" />
+
+    </application>
+
+</manifest>
