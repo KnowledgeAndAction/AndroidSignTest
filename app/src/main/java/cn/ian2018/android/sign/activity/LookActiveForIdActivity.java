@@ -78,6 +78,7 @@ public class LookActiveForIdActivity extends AppCompatActivity {
                 .get()
                 .url(URLs.GET_ACTIVE_BY_YUNZI)
                 .addParams("sensoroId", yunziId)
+                .addParams("studentNum", "")
                 .build()
                 .execute(new StringCallback() {
                     @Override

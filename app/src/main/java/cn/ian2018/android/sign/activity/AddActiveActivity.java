@@ -36,8 +36,9 @@ import okhttp3.Call;
  */
 public class AddActiveActivity extends AppCompatActivity {
     private static final int SCAN_CODE = 0;
-    private static final int REAL = 1;
-    private static final int NO_REAL = 0;
+    private static final int DAILY = 1; // 日常活动
+    private static final int ORDINARY = 2; // 普通活动
+    private static final int DUTY = 3; // 值班
     private EditText et_active_name;
     private EditText et_active_des;
     private EditText et_yunzi_id;
@@ -191,10 +192,10 @@ public class AddActiveActivity extends AppCompatActivity {
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
                 switch (checkedId) {
                     case R.id.rb_real:
-                        mRule = REAL;
+                        mRule = DAILY;
                         break;
                     case R.id.rb_no_real:
-                        mRule = NO_REAL;
+                        mRule = ORDINARY;
                         break;
                 }
             }

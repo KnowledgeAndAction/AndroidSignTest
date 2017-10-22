@@ -65,4 +65,12 @@ public class URLs {
      * 删除活动
      */
     public static final String DELETE_ACTIVE = "http://123.206.57.216:8080/SchoolTestInterface/deleteActivityFalse.do";
+    /**
+     * 获取值班总时间
+     */
+    public static final String GET_ALL_DUTY_TIME = "http://123.206.57.216:8080/SchoolTestInterface/getDutyTime.do";
+    /**
+     * 添加补班
+     */
+    public static final String ADD_BACK_DUTY = "http://123.206.57.216:8080/SchoolTestInterface/addBackDuty.do";
 }

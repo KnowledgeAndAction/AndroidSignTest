@@ -93,8 +93,13 @@ public class DetailActivity extends AppCompatActivity {
 
         activityLocation.setText("地点：" + active.getActiveLocation());
         activityDes.setText("    " + active.getActiveDes());
-        tv_time.setText("开始时间：" + active.getActiveTime().replace("T", " ").substring(0, 16));
-        tv_end_time.setText("结束时间：" + active.getEndTime().replace("T", " ").substring(0, 16));
+        if(active.getRule() == 3){
+            tv_time.setText("开始时间：" + active.getActiveTime().replace("T", " ").substring(11, 16));
+            tv_end_time.setText("结束时间：" + active.getEndTime().replace("T", " ").substring(11, 16));
+        } else {
+            tv_time.setText("开始时间：" + active.getActiveTime().replace("T", " ").substring(0, 16));
+            tv_end_time.setText("结束时间：" + active.getEndTime().replace("T", " ").substring(0, 16));
+        }
 
         // 签到按钮点击事件
         signButton.setOnClickListener(new View.OnClickListener() {
@@ -111,6 +116,7 @@ public class DetailActivity extends AppCompatActivity {
         switch (active.getRule()) {
             // 日常活动
             case 1:
+            case 3:
                 // 如果当前签到时间距离上一次签到时间不超过24个小时，就不能再次签到
                 if (database.isRecentSign(SpUtil.getString(Constant.ACCOUNT, ""), active.getActiveId()) || clickDebug > 24) {
                     if (TimeCompareDay(active.getActiveTime().replace("T", " ").substring(11, 19))) {

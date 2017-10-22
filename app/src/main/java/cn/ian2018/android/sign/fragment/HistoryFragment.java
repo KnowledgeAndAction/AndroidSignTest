@@ -27,6 +27,7 @@ import cn.ian2018.android.sign.db.MyDatabase;
 import cn.ian2018.android.sign.model.AnalyzeSign;
 import cn.ian2018.android.sign.model.HistoryActive;
 import cn.ian2018.android.sign.utils.Constant;
+import cn.ian2018.android.sign.utils.Logs;
 import cn.ian2018.android.sign.utils.SpUtil;
 import cn.ian2018.android.sign.utils.ToastUtil;
 import cn.ian2018.android.sign.utils.URLs;
@@ -48,6 +49,7 @@ public class HistoryFragment extends BaseFragment implements SwipeRefreshLayout.
     private View view;
     private RadarView mRadarView;
     private MyDatabase db;
+    private TextView tv_des;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -63,7 +65,41 @@ public class HistoryFragment extends BaseFragment implements SwipeRefreshLayout.
         // 获取活动信息
         getActive();
 
+        getAllDutyTime();
+
         return view;
+    }
+
+    private void getAllDutyTime() {
+        OkHttpUtils
+                .get()
+                .url(URLs.GET_ALL_DUTY_TIME)
+                .addParams("studentNum",SpUtil.getString(Constant.ACCOUNT,""))
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        Logs.e("获取总时间失败:"+e.toString());
+                        tv_des.setText("抱歉，数据出了点问题，请刷新重试");
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            if(jsonObject.getBoolean("sucessed")) {
+                                String time = jsonObject.getString("data");
+                                tv_des.setText("同学，你已经累计值班"+time+"，继续加油啊");
+                            } else {
+                                tv_des.setText("同学，目前还没有值班记录，赶快走一波学习吧");
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Logs.e("获取总时间失败:"+e.toString());
+                            tv_des.setText("抱歉，数据出了点问题，请刷新重试");
+                        }
+                    }
+                });
     }
 
     private void initData() {
@@ -115,7 +151,7 @@ public class HistoryFragment extends BaseFragment implements SwipeRefreshLayout.
                             if (sucessed) {
                                 JSONArray data = jsonObject.getJSONArray("data");
                                 if (data.length() == 0) {
-                                    ToastUtil.show("没有历史记录");
+                                    mRadarView.setEmptyHint("无数据");
                                 } else {
                                     for (int j = 0; j < data.length(); j++) {
                                         JSONObject hActivity = data.getJSONObject(j);
@@ -156,7 +192,7 @@ public class HistoryFragment extends BaseFragment implements SwipeRefreshLayout.
                                     }
                                 }
                             } else {
-                                ToastUtil.show("获取历史记录失败");
+                                mRadarView.setEmptyHint("无数据");
                             }
                             mSwipeLayout.setRefreshing(false);
                             initData();
@@ -178,6 +214,8 @@ public class HistoryFragment extends BaseFragment implements SwipeRefreshLayout.
         mSwipeLayout.setColorSchemeResources(R.color.colorPrimary, R.color.colorAccent, R.color.colorPrimaryDark);
         mSwipeLayout.setOnRefreshListener(this);
 
+        tv_des = (TextView) view.findViewById(R.id.tv_des);
+
         mRadarView = (RadarView) view.findViewById(R.id.radarView);
         mRadarView.setEmptyHint("无数据");
 
@@ -198,5 +236,7 @@ public class HistoryFragment extends BaseFragment implements SwipeRefreshLayout.
     @Override
     public void onRefresh() {
         getActive();
+
+        getAllDutyTime();
     }
 }

@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -30,6 +31,7 @@ import org.json.JSONObject;
 import java.io.File;
 
 import cn.ian2018.android.sign.MyApplication;
+import cn.ian2018.android.sign.activity.AddBackDutyActivity;
 import cn.ian2018.android.sign.activity.ChangePswActivity;
 import cn.ian2018.android.sign.activity.FeedBackActivity;
 import cn.ian2018.android.sign.activity.LoginActivity;
@@ -48,13 +50,14 @@ import okhttp3.Call;
  */
 
 public class SettingFragment extends BaseFragment implements View.OnClickListener {
-    private TextView tv_changePassWorld;
-    private TextView tv_checkToUpdata;
-    private TextView tv_feed_back;
-    private TextView tv_esc;
+    private LinearLayout ll_change;
+    private LinearLayout ll_checkToUpdate;
+    private LinearLayout ll_feedback;
+    private LinearLayout ll_esc;
     private ProgressDialog progressDialog;
     private long[] mHit = new long[6];
-    private TextView tv_look_feed_back;
+    private LinearLayout ll_look_feedback;
+    private LinearLayout ll_add_duty;
 
 
     @Override
@@ -73,17 +76,19 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
 
     // 初始化控件
     private void inItUI(View view) {
-        tv_changePassWorld = (TextView) view.findViewById(R.id.tv_changePassWorld);
-        tv_checkToUpdata = (TextView) view.findViewById(R.id.tv_checkToUpdate);
-        tv_feed_back = (TextView) view.findViewById(R.id.tv_feed_back);
-        tv_look_feed_back = (TextView) view.findViewById(R.id.tv_look_feed_back);
-        tv_esc = (TextView) view.findViewById(R.id.tv_esc);
+        ll_change = (LinearLayout) view.findViewById(R.id.ll_change);
+        ll_checkToUpdate = (LinearLayout) view.findViewById(R.id.ll_checkToUpdate);
+        ll_feedback = (LinearLayout) view.findViewById(R.id.ll_feedback);
+        ll_look_feedback = (LinearLayout) view.findViewById(R.id.ll_look_feedback);
+        ll_esc = (LinearLayout) view.findViewById(R.id.ll_esc);
+        ll_add_duty = (LinearLayout) view.findViewById(R.id.ll_add_duty);
 
-        tv_changePassWorld.setOnClickListener(this);
-        tv_checkToUpdata.setOnClickListener(this);
-        tv_feed_back.setOnClickListener(this);
-        tv_look_feed_back.setOnClickListener(this);
-        tv_esc.setOnClickListener(this);
+        ll_change.setOnClickListener(this);
+        ll_checkToUpdate.setOnClickListener(this);
+        ll_feedback.setOnClickListener(this);
+        ll_look_feedback.setOnClickListener(this);
+        ll_esc.setOnClickListener(this);
+        ll_add_duty.setOnClickListener(this);
 
         ImageView iv_pic = (ImageView) view.findViewById(R.id.iv_pic);
         TextView tv_name = (TextView) view.findViewById(R.id.tv_name);
@@ -94,7 +99,7 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
                 .centerCrop()
                 .error(R.drawable.icon_pic)
                 .into(iv_pic);
-        tv_name.setText("姓名：" + SpUtil.getString(Constant.USER_NAME,""));
+        tv_name.setText(SpUtil.getString(Constant.USER_NAME,""));
         tv_grade.setText("年级：20" + SpUtil.getInt(Constant.USER_GRADE,17) + "级");
         tv_class.setText("班级：" + SpUtil.getString(Constant.USER_CLASS,""));
 
@@ -134,11 +139,11 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
 
         // 如果是开发者
         if (SpUtil.getString(Constant.PASS_WORD,"").equals("ccce27a4d2a2cb38de55e3d207b03a47")) {
-            tv_look_feed_back.setVisibility(View.VISIBLE);
-            tv_feed_back.setVisibility(View.GONE);
+            ll_look_feedback.setVisibility(View.VISIBLE);
+            ll_feedback.setVisibility(View.GONE);
         } else {
-            tv_look_feed_back.setVisibility(View.GONE);
-            tv_feed_back.setVisibility(View.VISIBLE);
+            ll_look_feedback.setVisibility(View.GONE);
+            ll_feedback.setVisibility(View.VISIBLE);
         }
     }
 
@@ -147,11 +152,14 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
     public void onClick(View view) {
 
         switch (view.getId()) {
-            case R.id.tv_changePassWorld:
+            case R.id.ll_change:
                 Intent intent = new Intent(getContext(), ChangePswActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.tv_checkToUpdate:
+            case R.id.ll_add_duty:
+                startActivity(new Intent(getContext(), AddBackDutyActivity.class));
+                break;
+            case R.id.ll_checkToUpdate:
                 showProgressDialogs();
                 // 发送GET请求
                 OkHttpUtils
@@ -176,13 +184,13 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
                             }
                         });
                 break;
-            case R.id.tv_feed_back:
+            case R.id.ll_feedback:
                 startActivity(new Intent(getContext(), FeedBackActivity.class));
                 break;
-            case R.id.tv_look_feed_back:
+            case R.id.ll_look_feedback:
                 startActivity(new Intent(getContext(), LookFeedbackActivity.class));
                 break;
-            case R.id.tv_esc:
+            case R.id.ll_esc:
                 showConfirmDialog();
                 break;
         }

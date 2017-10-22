@@ -31,9 +31,12 @@ import cn.ian2018.android.sign.activity.DetailActivity;
 import cn.ian2018.android.sign.db.MyDatabase;
 import cn.ian2018.android.sign.model.Active;
 import cn.ian2018.android.sign.model.Saying;
+import cn.ian2018.android.sign.utils.Constant;
 import cn.ian2018.android.sign.utils.Logs;
+import cn.ian2018.android.sign.utils.SpUtil;
 import cn.ian2018.android.sign.utils.ToastUtil;
 import cn.ian2018.android.sign.utils.URLs;
+import cn.ian2018.android.sign.utils.Utils;
 import okhttp3.Call;
 
 /**
@@ -129,6 +132,7 @@ public class ActivityFragment extends BaseFragment {
                 .get()
                 .url(URLs.GET_ACTIVE_BY_YUNZI)
                 .addParams("sensoroId", yunziId)
+                .addParams("studentNum", SpUtil.getString(Constant.ACCOUNT,""))
                 .build()
                 .execute(new StringCallback() {
                     @Override
@@ -152,10 +156,12 @@ public class ActivityFragment extends BaseFragment {
                                     String location = activity.getString("location");
                                     long activeId = activity.getLong("id");
                                     String endTime = activity.getString("endTime");
-                                    String rule = activity.getString("rule");
+                                    int rule = activity.getInt("rule");
                                     int show = activity.getInt("display");
-
-                                    if (show == 1) {
+                                    int backTo = activity.getInt("backTo");
+                                    int week = activity.getInt("week");
+                                    Logs.d("week:"+week+"       当前："+Utils.getWeek());
+                                    if (show == 1 && (week==0 || week== Utils.getWeek())) {
                                         // 获取当前时间，判断该活动是否已经失效，不失效时才添加到集合中
                                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                                         String presentTime = sdf.format(new java.util.Date());
@@ -169,7 +175,8 @@ public class ActivityFragment extends BaseFragment {
                                                 activeForId.setActiveDes(des);
                                                 activeForId.setActiveLocation(location);
                                                 activeForId.setEndTime(endTime);
-                                                activeForId.setRule(Integer.parseInt(rule));
+                                                activeForId.setRule(rule);
+                                                activeForId.setBackTo(backTo);
                                                 Logs.d("活动信息更新:" + name);
                                             } else {
                                                 Active active = new Active();
@@ -180,7 +187,8 @@ public class ActivityFragment extends BaseFragment {
                                                 active.setActiveDes(des);
                                                 active.setActiveLocation(location);
                                                 active.setEndTime(endTime);
-                                                active.setRule(Integer.parseInt(rule));
+                                                active.setRule(rule);
+                                                active.setBackTo(backTo);
                                                 mActiveList.add(active);
                                                 Logs.d("添加一个活动:" + name);
                                             }
@@ -274,9 +282,18 @@ public class ActivityFragment extends BaseFragment {
                 viewHolder = (ViewHolder) convertView.getTag();
             }
 
-            viewHolder.tv_name.setText(getItem(position).getActiveName());
-            viewHolder.tv_location.setText(getItem(position).getActiveLocation());
-            viewHolder.tv_time.setText(getItem(position).getActiveTime().replace("T", " ").substring(0, 16));
+            if (getItem(position).getBackTo() == 1) {
+                viewHolder.tv_name.setText(getItem(position).getActiveName() + " 补班");
+            } else {
+                viewHolder.tv_name.setText(getItem(position).getActiveName());
+            }
+            viewHolder.tv_location.setText("地点: "+getItem(position).getActiveLocation());
+            if(getItem(position).getRule() == 3) {
+                viewHolder.tv_time.setText("时间: "+getItem(position).getActiveTime().replace("T", " ").substring(11, 16)
+                                            + " - " + getItem(position).getEndTime().replace("T", " ").substring(11, 16));
+            } else {
+                viewHolder.tv_time.setText(getItem(position).getActiveTime().replace("T", " ").substring(0, 16));
+            }
 
             return convertView;
         }

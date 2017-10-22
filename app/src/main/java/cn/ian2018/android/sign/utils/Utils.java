@@ -13,6 +13,8 @@ import android.provider.Settings;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.TimeZone;
 
 import cn.ian2018.android.sign.MyApplication;
 
@@ -92,5 +94,13 @@ public class Utils {
             }
         }
         return false;
+    }
+
+    // 获取当前星期
+    public static  int getWeek(){
+        final Calendar c = Calendar.getInstance();
+        c.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
+        String mWay = String.valueOf(c.get(Calendar.DAY_OF_WEEK));
+        return Integer.valueOf(mWay);
     }
 }

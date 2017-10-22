@@ -4,148 +4,205 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@drawable/button_esc_normal"
-        android:orientation="horizontal"
-        android:padding="15dp">
+        android:layout_marginTop="10dp"
+        android:background="#ffffff"
+        android:paddingBottom="7dp"
+        android:paddingTop="7dp">
 
         <ImageView
             android:id="@+id/iv_pic"
-            android:layout_width="97.5dp"
-            android:layout_height="130dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerInParent="true"
-            android:layout_marginRight="3dp"
+            android:layout_width="63.75dp"
+            android:layout_height="85dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="18dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
             android:src="@drawable/icon_pic" />
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/iv_pic"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tv_name"
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="姓名：陈帅"
-                android:textSize="16sp" />
+                android:layout_height="wrap_content"
+                android:text="王晶"
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/tv_grade"
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
                 android:text="年级：2015级"
-                android:textSize="16sp" />
+                android:textColor="#b9b5b5"
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/tv_class"
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
                 android:text="班级：15软件"
-                android:textSize="16sp" />
+                android:textColor="#b9b5b5"
+                android:textSize="12sp" />
+
         </LinearLayout>
 
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_add_duty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/selector_setting_item_bg"
+        android:clickable="true"
+        android:gravity="center"
+        android:padding="16dp">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@mipmap/icon_back_duty" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="添加补班"
+            android:textSize="14sp" />
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="0.7dp"
+        android:background="#e6e3e3" />
+
+    <LinearLayout
+        android:id="@+id/ll_feedback"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_setting_item_bg"
+        android:clickable="true"
+        android:gravity="center"
+        android:padding="16dp">
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@mipmap/icon_feed" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="意见反馈"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_look_feedback"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/selector_setting_item_bg"
+        android:clickable="true"
+        android:gravity="center"
+        android:padding="16dp"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@mipmap/icon_feed" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="查看意见反馈"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_change"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:background="#e6e6e6" />
-
-
-    <TextView
-        android:id="@+id/tv_changePassWorld"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="3dp"
-        android:background="@drawable/button_esc_bg"
+        android:background="@drawable/selector_setting_item_bg"
+        android:clickable="true"
         android:gravity="center"
-        android:padding="10dp"
-        android:text="修改密码"
-        android:textSize="16sp" />
+        android:padding="16dp">
 
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@mipmap/icon_pass" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="修改密码"
+            android:textSize="14sp" />
+    </LinearLayout>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#e6e6e6" />
+        android:layout_height="0.7dp"
+        android:background="#e6e3e3" />
 
-    <TextView
-        android:id="@+id/tv_checkToUpdate"
+    <LinearLayout
+        android:id="@+id/ll_checkToUpdate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="3dp"
-        android:layout_marginTop="3dp"
-        android:background="@drawable/button_esc_bg"
+        android:background="@drawable/selector_setting_item_bg"
+        android:clickable="true"
         android:gravity="center"
-        android:padding="10dp"
-        android:text="检测更新"
-        android:textSize="16sp" />
+        android:padding="16dp">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#e6e6e6" />
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@mipmap/icon_updata" />
 
-    <TextView
-        android:id="@+id/tv_feed_back"
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="检测更新"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_esc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="3dp"
-        android:layout_marginTop="3dp"
-        android:background="@drawable/button_esc_bg"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/selector_setting_item_bg"
+        android:clickable="true"
         android:gravity="center"
-        android:padding="10dp"
-        android:text="意见反馈"
-        android:textSize="16sp"
-        android:visibility="visible" />
+        android:padding="16dp">
 
-    <TextView
-        android:id="@+id/tv_look_feed_back"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="3dp"
-        android:layout_marginTop="3dp"
-        android:background="@drawable/button_esc_bg"
-        android:gravity="center"
-        android:padding="10dp"
-        android:text="查看意见反馈"
-        android:textSize="16sp"
-        android:visibility="gone" />
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@mipmap/icon_esc" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#e6e6e6" />
-
-
-    <TextView
-        android:id="@+id/tv_esc"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
-        android:background="@drawable/button_esc_bg"
-        android:gravity="center"
-        android:padding="10dp"
-        android:text="注销"
-        android:textSize="16sp" />
-
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#e6e6e6" />
-
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="注销"
+            android:textSize="14sp" />
+    </LinearLayout>
 
 </LinearLayout>

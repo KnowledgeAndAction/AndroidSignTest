@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by Administrator on 2017/6/9.
  */
 
-public class Active implements Serializable{
+public class Active implements Serializable {
     private String activeName;
     private String activeDes;
     private String activeTime;
@@ -15,6 +15,7 @@ public class Active implements Serializable{
     private String endTime;
     private long activeId;
     private int rule;
+    private int backTo;
 
     public String getEndTime() {
         return endTime;
@@ -78,5 +79,13 @@ public class Active implements Serializable{
 
     public void setActiveLocation(String activeLocation) {
         this.activeLocation = activeLocation;
+    }
+
+    public int getBackTo() {
+        return backTo;
+    }
+
+    public void setBackTo(int backTo) {
+        this.backTo = backTo;
     }
 }

@@ -297,7 +297,7 @@ public class MyDatabase {
     // 获取日常签到次数
     public int getDailyFrequency(String num) {
         int number = 0;
-        Cursor cursor = db.query("AnalyzeSign", null, "rule=? and number=?", new String[]{"1",num}, null, null, null);
+        Cursor cursor = db.query("AnalyzeSign", null, "(rule=? or rule=?) and number=?", new String[]{"1","3",num}, null, null, null);
 
         while (cursor.moveToNext()) {
             number++;
