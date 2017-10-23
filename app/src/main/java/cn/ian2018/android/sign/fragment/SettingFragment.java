@@ -145,6 +145,10 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
             ll_look_feedback.setVisibility(View.GONE);
             ll_feedback.setVisibility(View.VISIBLE);
         }
+
+        if (SpUtil.getInt(Constant.USER_TYPE,0) == 1) {
+            ll_add_duty.setVisibility(View.GONE);
+        }
     }
 
     //设置按钮的点击事件。

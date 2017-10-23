@@ -12,7 +12,7 @@ public class URLs {
     /**
      * 检测更新
      */
-    public static final String UPDATE = "http://123.206.57.216:8080/test/update.json";
+    public static final String UPDATE = "http://123.206.57.216:8080/test/updateOfTest.json";
     /**
      * 获取云子上的活动
      */
@@ -73,4 +73,8 @@ public class URLs {
      * 添加补班
      */
     public static final String ADD_BACK_DUTY = "http://123.206.57.216:8080/SchoolTestInterface/addBackDuty.do";
+    /**
+     * 注册
+     */
+    public static final String SIGN_UP = "http://123.206.57.216:8080/SchoolTestInterface/signUp.do";
 }

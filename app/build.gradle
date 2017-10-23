@@ -7,8 +7,8 @@ android {
         applicationId "cn.ian2018.android.sign"
         minSdkVersion 18
         targetSdkVersion 25
-        versionCode 6
-        versionName "2.3"
+        versionCode 1
+        versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
     }
@@ -44,6 +44,7 @@ dependencies {
     compile 'q.rorbin:RadarView:1.0.2'
     testCompile 'junit:junit:4.12'
 }
+
 
 
 

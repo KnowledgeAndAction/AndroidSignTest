@@ -20,6 +20,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.hicc.information.sensorsignin.R;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -57,6 +58,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextInputLayout text_input_pass;
     private CustomVideoView videoview;
     private ProgressDialog downloadProgressDialog;
+    private TextView tv_sign_up;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -246,8 +248,19 @@ public class LoginActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
+            // 处理安装界面返回的
             case 1:
                 checkVersionCode();
+                break;
+            // 处理注册完成
+            case 2:
+                if (data != null) {
+                    String account = data.getStringExtra("account");
+                    String password = data.getStringExtra("password");
+                    et_account.setText(account);
+                    et_password.setText(password);
+                }
+                break;
         }
     }
 
@@ -461,6 +474,7 @@ public class LoginActivity extends AppCompatActivity {
         et_password = (EditText) findViewById(R.id.et_password);
         cb_remember = (CheckBox) findViewById(R.id.cb_remember);
         bt_login = (Button) findViewById(R.id.bt_login);
+        tv_sign_up = (TextView) findViewById(R.id.tv_sign_up);
 
         //ImageView iv_bg = (ImageView) findViewById(R.id.iv_bg);
         //Glide.with(this).load(R.drawable.a).asGif().into(iv_bg);
@@ -500,6 +514,14 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
+            }
+        });
+
+        // 注册按钮
+        tv_sign_up.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivityForResult(new Intent(LoginActivity.this,SignUpActivity.class),2);
             }
         });
 

@@ -91,7 +91,11 @@
             android:name="cn.ian2018.android.sign.activity.HistoryActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoTitle" />
-        <activity android:name="cn.ian2018.android.sign.activity.AddBackDutyActivity"
+        <activity
+            android:name="cn.ian2018.android.sign.activity.AddBackDutyActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoTitle" />
+        <activity android:name="cn.ian2018.android.sign.activity.SignUpActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoTitle" />
 

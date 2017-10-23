@@ -55,19 +55,19 @@ public class ChangePswActivity extends AppCompatActivity {
                 String old_pwd = et_old.getText().toString().trim();
                 String new_pwd = et_new.getText().toString().trim();
                 String new_pwd_true = et_new_true.getText().toString().trim();
-                final String old_psd = MD5Util.strToMD5(old_pwd);
-                if (!old_psd.equals(SpUtil.getString(Constant.PASS_WORD, ""))) {
-                    ToastUtil.show("密码不正确");
-                } else if (old_psd.equals("") || new_pwd.equals("")) {
-                    ToastUtil.show("密码不能为空！");
-                } else if (new_pwd.equals(old_pwd)) {
-                    ToastUtil.show("新密码与旧密码相同！");
-                } else if (new_pwd_true.equals("")) {
-                    ToastUtil.show("请确认密码");
-                } else if (new_pwd_true.equals(new_pwd)) {
-                    checkPassWorld(new_pwd);
+                if (!old_pwd.equals("") && !new_pwd.equals("") && !new_pwd_true.equals("")) {
+                    final String old_psd = MD5Util.strToMD5(old_pwd);
+                    if (!old_psd.equals(SpUtil.getString(Constant.PASS_WORD, ""))) {
+                        ToastUtil.show("密码不正确");
+                    } else if (new_pwd.equals(old_pwd)) {
+                        ToastUtil.show("新密码与旧密码相同！");
+                    } else if (new_pwd_true.equals(new_pwd)) {
+                        checkPassWorld(new_pwd);
+                    } else {
+                        ToastUtil.show("密码不一致！");
+                    }
                 } else {
-                    ToastUtil.show("密码不一致！");
+                    ToastUtil.show("密码不能为空");
                 }
             }
         });

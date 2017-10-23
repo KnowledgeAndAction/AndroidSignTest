@@ -99,6 +99,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         holder.tv_name.setText(active.getActiveName());
         holder.tv_location.setText(active.getActiveLocation());
         holder.tv_time.setText(active.getActiveTime().replace("T", " ").substring(0, 16));
+        if (active.getRule() == 3) {
+            holder.iv_delete.setVisibility(View.GONE);
+        }
     }
 
     @Override

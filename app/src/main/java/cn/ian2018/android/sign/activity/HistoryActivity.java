@@ -64,7 +64,7 @@ public class HistoryActivity extends AppCompatActivity {
                     @Override
                     public void onError(Call call, Exception e, int i) {
                         mSwipeLayout.setRefreshing(false);
-                        ToastUtil.show("历史记录响应失败"+e.toString());
+                        ToastUtil.show("历史记录响应失败" + e.toString());
                     }
 
                     @Override
@@ -75,45 +75,41 @@ public class HistoryActivity extends AppCompatActivity {
                             mActiveList.clear();
                             if (sucessed) {
                                 JSONArray data = jsonObject.getJSONArray("data");
-                                if (data.length() == 0) {
-                                    ToastUtil.show("没有历史记录");
-                                } else {
-                                    for (int j = 0; j < data.length(); j++) {
-                                        JSONObject hActivity = data.getJSONObject(j);
-                                        String hActivityId = hActivity.getString("id");
-                                        String hStudnetNum = hActivity.getString("studentNum");
-                                        String hInTime = hActivity.getString("inTime");
-                                        String hOutTime = hActivity.getString("outTime");
-                                        String hActivityDescription = hActivity.getString("activityDes");
-                                        String hTime = hActivity.getString("time");
-                                        String hLocation = hActivity.getString("location");
-                                        String hActivityName = hActivity.getString("activityName");
+                                for (int j = 0; j < data.length(); j++) {
+                                    JSONObject hActivity = data.getJSONObject(j);
+                                    String hActivityId = hActivity.getString("id");
+                                    String hStudnetNum = hActivity.getString("studentNum");
+                                    String hInTime = hActivity.getString("inTime");
+                                    String hOutTime = hActivity.getString("outTime");
+                                    String hActivityDescription = hActivity.getString("activityDes");
+                                    String hTime = hActivity.getString("time");
+                                    String hLocation = hActivity.getString("location");
+                                    String hActivityName = hActivity.getString("activityName");
 
-                                        // 如果是完成签离的活动才展示
-                                        if (!hInTime.equals(hOutTime)) {
-                                            HistoryActive historyActive = new HistoryActive();
-                                            historyActive.sethActivityId(hActivityId);
-                                            historyActive.sethStudnetNum(hStudnetNum);
-                                            historyActive.sethInTime(hInTime);
-                                            historyActive.sethOutTime(hOutTime);
-                                            historyActive.setActivityDescription(hActivityDescription);
-                                            historyActive.sethActivityName(hActivityName);
-                                            historyActive.sethLocation(hLocation);
-                                            historyActive.sethTime(hTime);
-                                            historyActive.setEndTime(hActivity.getString("endTime"));
-                                            mActiveList.add(historyActive);
-                                        }
+                                    // 如果是完成签离的活动才展示
+                                    if (!hInTime.equals(hOutTime)) {
+                                        HistoryActive historyActive = new HistoryActive();
+                                        historyActive.sethActivityId(hActivityId);
+                                        historyActive.sethStudnetNum(hStudnetNum);
+                                        historyActive.sethInTime(hInTime);
+                                        historyActive.sethOutTime(hOutTime);
+                                        historyActive.setActivityDescription(hActivityDescription);
+                                        historyActive.sethActivityName(hActivityName);
+                                        historyActive.sethLocation(hLocation);
+                                        historyActive.sethTime(hTime);
+                                        historyActive.setEndTime(hActivity.getString("endTime"));
+                                        mActiveList.add(historyActive);
                                     }
                                 }
                             } else {
-                                ToastUtil.show("获取历史记录失败");
+                                ToastUtil.show("没有历史记录");
                             }
                             mSwipeLayout.setRefreshing(false);
                             adapter.notifyDataSetChanged();
                         } catch (JSONException e) {
                             e.printStackTrace();
                             mSwipeLayout.setRefreshing(false);
-                            ToastUtil.show("获取历史记录失败："+e.toString());
+                            ToastUtil.show("获取历史记录失败：" + e.toString());
                         }
                     }
                 });
@@ -192,6 +188,7 @@ public class HistoryActivity extends AppCompatActivity {
             return convertView;
         }
     }
+
     static class ViewHolder {
         TextView tv_name;
         TextView tv_location;

@@ -74,12 +74,12 @@ public class HistoryFragment extends BaseFragment implements SwipeRefreshLayout.
         OkHttpUtils
                 .get()
                 .url(URLs.GET_ALL_DUTY_TIME)
-                .addParams("studentNum",SpUtil.getString(Constant.ACCOUNT,""))
+                .addParams("studentNum", SpUtil.getString(Constant.ACCOUNT, ""))
                 .build()
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e, int id) {
-                        Logs.e("获取总时间失败:"+e.toString());
+                        Logs.e("获取总时间失败:" + e.toString());
                         tv_des.setText("抱歉，数据出了点问题，请刷新重试");
                     }
 
@@ -87,15 +87,15 @@ public class HistoryFragment extends BaseFragment implements SwipeRefreshLayout.
                     public void onResponse(String response, int id) {
                         try {
                             JSONObject jsonObject = new JSONObject(response);
-                            if(jsonObject.getBoolean("sucessed")) {
+                            if (jsonObject.getBoolean("sucessed")) {
                                 String time = jsonObject.getString("data");
-                                tv_des.setText("同学，你已经累计值班"+time+"，继续加油啊");
+                                tv_des.setText("同学，你已经累计值班" + time + "，继续加油啊");
                             } else {
                                 tv_des.setText("同学，目前还没有值班记录，赶快走一波学习吧");
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Logs.e("获取总时间失败:"+e.toString());
+                            Logs.e("获取总时间失败:" + e.toString());
                             tv_des.setText("抱歉，数据出了点问题，请刷新重试");
                         }
                     }
@@ -115,7 +115,7 @@ public class HistoryFragment extends BaseFragment implements SwipeRefreshLayout.
         int earlyFrequency = db.getEarlyFrequency(SpUtil.getString(Constant.ACCOUNT, ""));
 
         List<Float> values = new ArrayList<>();
-        Collections.addAll(values, (float)dailyFrequency, (float)lectureFrequency, (float)earlyFrequency, 7f, 5f);
+        Collections.addAll(values, (float) dailyFrequency, (float) lectureFrequency, (float) earlyFrequency, 7f, 5f);
         RadarData data = new RadarData(values);
 
         mRadarView.addData(data);
@@ -136,7 +136,7 @@ public class HistoryFragment extends BaseFragment implements SwipeRefreshLayout.
                     public void onError(Call call, Exception e, int i) {
                         mSwipeLayout.setRefreshing(false);
                         if (respond) {
-                            ToastUtil.show("历史记录响应失败:"+e.toString());
+                            ToastUtil.show("历史记录响应失败:" + e.toString());
                         } else {
                             ToastUtil.show("当前网络不可用，请检查网络连接");
                         }
@@ -150,56 +150,53 @@ public class HistoryFragment extends BaseFragment implements SwipeRefreshLayout.
                             mActiveList.clear();
                             if (sucessed) {
                                 JSONArray data = jsonObject.getJSONArray("data");
-                                if (data.length() == 0) {
-                                    mRadarView.setEmptyHint("无数据");
-                                } else {
-                                    for (int j = 0; j < data.length(); j++) {
-                                        JSONObject hActivity = data.getJSONObject(j);
+                                for (int j = 0; j < data.length(); j++) {
+                                    JSONObject hActivity = data.getJSONObject(j);
 
-                                        String hActivityId = hActivity.getString("id");
-                                        String hStudnetNum = hActivity.getString("studentNum");
-                                        String hInTime = hActivity.getString("inTime");
-                                        String hOutTime = hActivity.getString("outTime");
-                                        String hActivityDescription = hActivity.getString("activityDes");
-                                        String hTime = hActivity.getString("time");
-                                        String hLocation = hActivity.getString("location");
-                                        String hActivityName = hActivity.getString("activityName");
+                                    String hActivityId = hActivity.getString("id");
+                                    String hStudnetNum = hActivity.getString("studentNum");
+                                    String hInTime = hActivity.getString("inTime");
+                                    String hOutTime = hActivity.getString("outTime");
+                                    String hActivityDescription = hActivity.getString("activityDes");
+                                    String hTime = hActivity.getString("time");
+                                    String hLocation = hActivity.getString("location");
+                                    String hActivityName = hActivity.getString("activityName");
 
-                                        // 如果是完成签离的活动才展示
-                                        if (!hInTime.equals(hOutTime)) {
-                                            HistoryActive historyActive = new HistoryActive();
-                                            historyActive.sethActivityId(hActivityId);
-                                            historyActive.sethStudnetNum(hStudnetNum);
-                                            historyActive.sethInTime(hInTime);
-                                            historyActive.sethOutTime(hOutTime);
-                                            historyActive.setActivityDescription(hActivityDescription);
-                                            historyActive.sethActivityName(hActivityName);
-                                            historyActive.sethLocation(hLocation);
-                                            historyActive.sethTime(hTime);
-                                            historyActive.setEndTime(hActivity.getString("endTime"));
-                                            mActiveList.add(historyActive);
+                                    // 如果是完成签离的活动才展示
+                                    if (!hInTime.equals(hOutTime)) {
+                                        HistoryActive historyActive = new HistoryActive();
+                                        historyActive.sethActivityId(hActivityId);
+                                        historyActive.sethStudnetNum(hStudnetNum);
+                                        historyActive.sethInTime(hInTime);
+                                        historyActive.sethOutTime(hOutTime);
+                                        historyActive.setActivityDescription(hActivityDescription);
+                                        historyActive.sethActivityName(hActivityName);
+                                        historyActive.sethLocation(hLocation);
+                                        historyActive.sethTime(hTime);
+                                        historyActive.setEndTime(hActivity.getString("endTime"));
+                                        mActiveList.add(historyActive);
 
-                                            AnalyzeSign analyzeSign = new AnalyzeSign();
-                                            analyzeSign.setNumber(hStudnetNum);
-                                            analyzeSign.setActiveName(hActivityName);
-                                            analyzeSign.setRule(Integer.valueOf(hActivity.getString("rule")));
-                                            analyzeSign.setInTime(hInTime);
-                                            analyzeSign.setOutTime(hOutTime);
-                                            analyzeSign.setTime(hTime);
-                                            analyzeSign.setEndTime(hActivity.getString("endTime"));
-                                            db.saveAnalyzeSign(analyzeSign);
-                                        }
+                                        AnalyzeSign analyzeSign = new AnalyzeSign();
+                                        analyzeSign.setNumber(hStudnetNum);
+                                        analyzeSign.setActiveName(hActivityName);
+                                        analyzeSign.setRule(Integer.valueOf(hActivity.getString("rule")));
+                                        analyzeSign.setInTime(hInTime);
+                                        analyzeSign.setOutTime(hOutTime);
+                                        analyzeSign.setTime(hTime);
+                                        analyzeSign.setEndTime(hActivity.getString("endTime"));
+                                        db.saveAnalyzeSign(analyzeSign);
                                     }
+                                    initData();
                                 }
                             } else {
-                                mRadarView.setEmptyHint("无数据");
+                                mRadarView.setEmptyHint("暂无数据");
                             }
                             mSwipeLayout.setRefreshing(false);
-                            initData();
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                             mSwipeLayout.setRefreshing(false);
-                            ToastUtil.show("获取历史记录失败："+e.toString());
+                            ToastUtil.show("获取历史记录失败：" + e.toString());
                         }
                     }
                 });
@@ -217,7 +214,7 @@ public class HistoryFragment extends BaseFragment implements SwipeRefreshLayout.
         tv_des = (TextView) view.findViewById(R.id.tv_des);
 
         mRadarView = (RadarView) view.findViewById(R.id.radarView);
-        mRadarView.setEmptyHint("无数据");
+        mRadarView.setEmptyHint("暂无数据");
 
         // 设置线条颜色
         List<Integer> layerColor = new ArrayList<>();

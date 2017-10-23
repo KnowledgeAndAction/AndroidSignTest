@@ -138,7 +138,7 @@ public class DetailActivity extends AppCompatActivity {
                 }
                 break;
             // 普通活动
-            case 0:
+            case 2:
                 int flag = database.isSign2(SpUtil.getString(Constant.ACCOUNT, ""), active.getActiveId());
                 switch (flag) {
                     // 如果还没有签到过

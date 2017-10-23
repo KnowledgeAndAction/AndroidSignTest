@@ -142,20 +142,24 @@ public class ChangeActiveActivity extends AppCompatActivity {
         bt_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String activeName = et_active_name.getText().toString().trim();
-                String activeDes = et_active_des.getText().toString().trim();
-                String activeLocation = et_active_location.getText().toString().trim();
+                if (mRule != 3) {
+                    String activeName = et_active_name.getText().toString().trim();
+                    String activeDes = et_active_des.getText().toString().trim();
+                    String activeLocation = et_active_location.getText().toString().trim();
 
-                // 如果都不为空，提交活动
-                if (!activeName.equals("") && !activeDes.equals("") && !activeLocation.equals("")
-                        && !mDate.equals("") && !mTime.equals("") && mRule != -1
-                        && !mEndDate.equals("") && !mEndTime.equals("")) {
-                    String dateTime = mDate + " " + mTime;
-                    String endTime = mEndDate + " " + mEndTime;
-                    // 提交修改的活动到服务器
-                    submitChangeActive(activeName, activeDes, activeLocation, dateTime, endTime, mRule);
+                    // 如果都不为空，提交活动
+                    if (!activeName.equals("") && !activeDes.equals("") && !activeLocation.equals("")
+                            && !mDate.equals("") && !mTime.equals("") && mRule != -1
+                            && !mEndDate.equals("") && !mEndTime.equals("")) {
+                        String dateTime = mDate + " " + mTime;
+                        String endTime = mEndDate + " " + mEndTime;
+                        // 提交修改的活动到服务器
+                        submitChangeActive(activeName, activeDes, activeLocation, dateTime, endTime, mRule);
+                    } else {
+                        ToastUtil.show("请将活动信息填写完整");
+                    }
                 } else {
-                    ToastUtil.show("请将活动信息填写完整");
+                    ToastUtil.show("普通管理员暂时不能修改值班，请联系开发者修改");
                 }
             }
         });
